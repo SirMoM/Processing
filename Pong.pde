@@ -30,7 +30,6 @@ int player2Score;
 
 void setup() {
   size(1000, 500);
-
   background(0);
   noStroke();
   smooth();
@@ -40,20 +39,16 @@ void setup() {
   rectHeight = 100;
   rectWidth = 10;
 
-  xPosRectP1 = 20;
-  yPosRectP1 = height / 2 - 50;
   xMovRectP1 = 0;
   yMoveRectP1 = 50;
 
-  xPosRectP2 = width - 30;
-  yPosRectP2 = height / 2 - 50;
   xMovRectP2 = 0;
   yMoveRectP2 = 50;
 
   player1Score = 10;
   player2Score = 10;
 
-  resetBall();
+  reset();
   textSize(50);
   text("GO!!", width / 2 - 100, height /2);
 }
@@ -97,11 +92,11 @@ void player2() {
 
 void collideWithWall() {
   if (xPosBall >= width + 15) {
-    resetBall();
+    reset();
     player2Score--;
   }
   if (xPosBall <= -15) {
-    resetBall();
+    reset();
     player1Score --;
   }
   if (yPosBall >= height) {
@@ -169,11 +164,15 @@ boolean isOnYEdge(float yPos) {
   }
 }
 
-void resetBall() {
+void reset() {
+  frameRate(1);
   xPosBall = width / 2;
-  yPosBall = height / 2; //<>//
+  yPosBall = height / 2; 
   ballMoveValue();
-  frameRate(1); //<>//
+  xPosRectP1 = 20;
+  yPosRectP1 = height / 2 - 50;
+  xPosRectP2 = width - 30;
+  yPosRectP2 = height / 2 - 50;
 }
 
 void ballMoveValue(){
@@ -181,7 +180,7 @@ void ballMoveValue(){
   yMovBall = random(-5, 5);
   if(yMovBall == 0 || xMovBall == 0){ //<>//
     ballMoveValue();
-  } //<>//
+  }
 }
 
 void centerLine(){
@@ -194,23 +193,31 @@ void  keyPressed() {
   print(keyCode);
   if (keyCode == 87) {
     println("W");
-    this.yPosRectP1 = this.yPosRectP1 - yMoveRectP1;
+    if(!(yPosRectP1 <= 0)){
+      this.yPosRectP1 = this.yPosRectP1 - yMoveRectP1;
+    }  
   }
   if (keyCode == 83) {
     println("S");
-    this.yPosRectP1 = this.yPosRectP1 + yMoveRectP1;
+    if(!(yPosRectP1 >= height - rectHeight )){
+      this.yPosRectP1 = this.yPosRectP1 + yMoveRectP1;
+    }
   }
   if (keyCode == 38) {
     println("UP");
-    this.yPosRectP2 = this.yPosRectP2 - yMoveRectP2;
+    if(!(yPosRectP2 <= 0)){
+      this.yPosRectP2 = this.yPosRectP2 - yMoveRectP2;
+    }
   }
   if (keyCode == 40) {
     println("DOWN");
-    this.yPosRectP2 = this.yPosRectP2 + yMoveRectP2;
+    if(!(yPosRectP2 >= height - rectHeight )){
+      this.yPosRectP2 = this.yPosRectP2 + yMoveRectP2;
+    }
   }
   if (keyCode == 32) {
     println("SPACE");
-    resetBall();
+    reset();
   }
   
 }
