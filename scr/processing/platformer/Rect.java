@@ -8,10 +8,10 @@ package processing.platformer;
  *
  */
 public class Rect {
-	private int xPos;
-	private int yPos;
-	private int height;
-	private int width;
+	private double xPos;
+	private double yPos;
+	private double height;
+	private double width;
 	
 	/**
 	 * @param xPos
@@ -19,7 +19,7 @@ public class Rect {
 	 * @param height
 	 * @param width
 	 */
-	public Rect(int xPos, int yPos, int height, int width) {
+	public Rect(int xPos, int yPos, int width, int height) {
 		super();
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -27,59 +27,77 @@ public class Rect {
 		this.width = width;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("xPos=");
+		builder.append(xPos);
+		builder.append(", yPos=");
+		builder.append(yPos);
+		builder.append(", height=");
+		builder.append(height);
+		builder.append(", width=");
+		builder.append(width);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	/**
 	 * @return the xPos
 	 */
-	public int getxPos() {
+	public double getxPos() {
 		return xPos;
 	}
 
 	/**
 	 * @return the yPos
 	 */
-	public int getyPos() {
+	public double getyPos() {
 		return yPos;
 	}
 
 	/**
 	 * @return the height
 	 */
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
 	/**
 	 * @return the width
 	 */
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
 	/**
 	 * @param xPos the xPos to set
 	 */
-	public void setxPos(int xPos) {
+	public void setxPos(double xPos) {
 		this.xPos = xPos;
 	}
 
 	/**
 	 * @param yPos the yPos to set
 	 */
-	public void setyPos(int yPos) {
+	public void setyPos(double yPos) {
 		this.yPos = yPos;
 	}
 
 	/**
 	 * @param height the height to set
 	 */
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		this.height = height;
 	}
 
 	/**
 	 * @param width the width to set
 	 */
-	public void setWidth(int width) {
+	public void setWidth(double width) {
 		this.width = width;
 	}
 

@@ -15,24 +15,30 @@ public class Player {
 	private boolean onGround = false;
 	private double xVel = 0.0;
 	private double gravityRatio;
+	public static final int HEIGHT = 15;
+	public static final int WIDTH = 5;
+	public Rect body;
 	
 	
 	public Player(int xPos, int yPos, double gravityRatio) {
 		this.yPos = yPos;
 		this.xPos = xPos; 
 		this.gravityRatio = gravityRatio;
+		body = new Rect(xPos, yPos, WIDTH, HEIGHT);
 	}
 	
 	public void update() {
 		 if(onGround) {
-		       xVel *= gravityRatio;
+		       xVel *= 0.9;
 		 } else {
 		       yVel += gravityRatio;
 		 }
 		 this.yPos += yVel;
 		 this.xPos += xVel;
 		 
-		System.out.println("yVel: " + this.yVel);
+		 this.body.setxPos(xPos);
+		 this.body.setyPos(yPos);
+		 
 		
 	}
 	

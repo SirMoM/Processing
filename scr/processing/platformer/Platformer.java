@@ -14,7 +14,7 @@ public class Platformer extends PApplet{
 	private final Player player;
 	private final int width = 1500;
 	private final int height = 500;
-	private final Rect base = new Rect(0, (height / 2) - 15, width, -10);
+	private final Rect base = new Rect(0, (height / 2) + Player.HEIGHT, width, 10);
 	
 
 	/**
@@ -28,12 +28,14 @@ public class Platformer extends PApplet{
 
 	public Platformer() {
 		player = new Player(10, 10, 0.1d);
+		System.out.println(base);
 	}
 
 
 
 	public void setup() {
 		background(0);
+		fill(204, 102, 0);
 	}
 	
 	public void draw() {
@@ -43,23 +45,18 @@ public class Platformer extends PApplet{
 		player.update();
 
 		if (player.getyPos() >= height-(height / 2)) {
-//			player.setOnGround(true);
+			player.setOnGround(true);
 			player.setyVel(0);
 			player.setyPos(height-(height / 2));
 		}else {
-//			player.setOnGround(false);
+			player.setOnGround(false);
 		}
-		drawPlayer();
+		drawRect(player.body);
 	}
 	
 	private void drawRect(Rect rect) {
-		rect(rect.getxPos(), rect.getyPos(), rect.getWidth(), rect.getHeight());
-	}
-
-
-
-	private void drawPlayer() {
-		rect((int) player.getxPos(), (int) player.getyPos(), 5, 15);
+		rect((float) rect.getxPos(), (float) rect.getyPos(), (float) rect.getWidth(), (float) rect.getHeight());
+		System.out.println("TEST");
 	}
 
 	public void settings() {
@@ -73,12 +70,12 @@ public class Platformer extends PApplet{
 			break;
 
 		case ButtonCodes.A:
-			player.setxVel(-2);
+			player.setxVel(-10);
 			System.out.println("A");
 			break;
 		
 		case ButtonCodes.D:
-			player.setxVel(2);
+			player.setxVel(10);
 			System.out.println("D");
 			break;
 
