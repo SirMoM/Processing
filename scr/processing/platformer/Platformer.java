@@ -14,6 +14,7 @@ public class Platformer extends PApplet{
 	private final Player player;
 	private final int width = 1500;
 	private final int height = 500;
+	private final Rect base = new Rect(0, (height / 2) - 15, width, -10);
 	
 
 	/**
@@ -38,7 +39,7 @@ public class Platformer extends PApplet{
 	public void draw() {
 		frameRate(120);
 		background(0);
-		drawBase();
+		drawRect(base);
 		player.update();
 
 		if (player.getyPos() >= height-(height / 2)) {
@@ -51,8 +52,8 @@ public class Platformer extends PApplet{
 		drawPlayer();
 	}
 	
-	private void drawBase() {
-		rect(0, height /2 +15, width, 10);
+	private void drawRect(Rect rect) {
+		rect(rect.getxPos(), rect.getyPos(), rect.getWidth(), rect.getHeight());
 	}
 
 
