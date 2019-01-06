@@ -4,7 +4,7 @@
 package processing.platformer;
 
 /**
- * @author Student
+ * @author Noah Ruben
  *
  */
 public class Player {
@@ -18,30 +18,28 @@ public class Player {
 	public static final int HEIGHT = 15;
 	public static final int WIDTH = 5;
 	public Rect body;
-	
-	
+
 	public Player(int xPos, int yPos, double gravityRatio) {
 		this.yPos = yPos;
-		this.xPos = xPos; 
+		this.xPos = xPos;
 		this.gravityRatio = gravityRatio;
 		body = new Rect(xPos, yPos, WIDTH, HEIGHT);
 	}
-	
+
 	public void update() {
-		 if(onGround) {
-		       xVel *= 0.9;
-		 } else {
-		       yVel += gravityRatio;
-		 }
-		 this.yPos += yVel;
-		 this.xPos += xVel;
-		 
-		 this.body.setxPos(xPos);
-		 this.body.setyPos(yPos);
-		 
-		
+		if (onGround) {
+			xVel *= 0.5;
+		} else {
+			yVel += gravityRatio;
+		}
+		this.yPos += yVel;
+		this.xPos += xVel;
+
+		this.body.setxPos(xPos);
+		this.body.setyPos(yPos);
+
 	}
-	
+
 	/**
 	 * @return the yPos
 	 */
@@ -103,6 +101,7 @@ public class Player {
 	 */
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
+		this.body.setyPos(yPos);
 	}
 
 	/**
@@ -110,5 +109,6 @@ public class Player {
 	 */
 	public void setxPos(int xPos) {
 		this.xPos = xPos;
+		this.body.setxPos(xPos);
 	}
 }

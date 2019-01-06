@@ -4,7 +4,7 @@
 package processing.platformer;
 
 /**
- * @author Student
+ * @author Noah Ruben
  *
  */
 public interface ButtonCodes {

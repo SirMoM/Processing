@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import processing.pong.PongEclipse;
 
 /**
- * @author Student
+ * @author Noah Ruben
  *
  */
 public class GetKeyCodes extends PApplet{

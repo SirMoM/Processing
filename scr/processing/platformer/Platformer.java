@@ -3,10 +3,14 @@
  */
 package processing.platformer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import processing.core.PApplet;
 
 /**
- * @author Student
+ * @author Noah Ruben
  *
  */
 public class Platformer extends PApplet{
@@ -14,75 +18,82 @@ public class Platformer extends PApplet{
 	private final Player player;
 	private final int width = 1500;
 	private final int height = 500;
-	private final Rect base = new Rect(0, (height / 2) + Player.HEIGHT, width, 10);
-	
+	private final Rect base = new Rect(0, (this.height / 2), this.width, 25);
+	private List<Rect> platforms = new ArrayList<Rect>();
+
+	public Platformer(){
+		this.player = new Player(10, 10, 0.01);
+		this.platforms.add(this.base);
+	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		PApplet.main(Platformer.class);
 	}
-	
-	
 
-	public Platformer() {
-		player = new Player(10, 10, 0.1d);
-		System.out.println(base);
-	}
+	@Override
+	public void draw(){
+		this.frameRate(120);
+		this.background(0);
+		this.drawRect(this.base);
+		this.drawRect(this.player.body);
 
-
-
-	public void setup() {
-		background(0);
-		fill(204, 102, 0);
-	}
-	
-	public void draw() {
-		frameRate(120);
-		background(0);
-		drawRect(base);
-		player.update();
-
-		if (player.getyPos() >= height-(height / 2)) {
-			player.setOnGround(true);
-			player.setyVel(0);
-			player.setyPos(height-(height / 2));
-		}else {
-			player.setOnGround(false);
+		for(Iterator iterator = this.platforms.iterator(); iterator.hasNext();){
+			Rect rect = (Rect) iterator.next();
+			if(rect.isCollided(this.player.body)){
+				this.player.setOnGround(true);
+			}
 		}
-		drawRect(player.body);
-	}
-	
-	private void drawRect(Rect rect) {
-		rect((float) rect.getxPos(), (float) rect.getyPos(), (float) rect.getWidth(), (float) rect.getHeight());
-		System.out.println("TEST");
+
+		this.player.update();
 	}
 
-	public void settings() {
-		size(width, height);
-	}
-	
-	public void keyPressed() {
-		switch (keyCode) {
-		case ButtonCodes.SPACE:
-			player.setyVel(-5);
-			break;
+	@Override
+	public void keyPressed(){
+		switch (this.keyCode) {
+			case ButtonCodes.SPACE:
+				if(this.player.isOnGround()){
+					this.player.setyVel(-5);
+				}
+				break;
 
-		case ButtonCodes.A:
-			player.setxVel(-10);
-			System.out.println("A");
-			break;
-		
-		case ButtonCodes.D:
-			player.setxVel(10);
-			System.out.println("D");
-			break;
+			case ButtonCodes.A:
+				if(!this.player.isOnGround()){
+					this.player.setxVel(-20);
+				} else{
+					this.player.setxVel(-40);
+				}
+				break;
 
-		default:
-			System.out.println(keyCode);
-			break;
+			case ButtonCodes.D:
+				if(!this.player.isOnGround()){
+					this.player.setxVel(20);
+				} else{
+					this.player.setxVel(40);
+				}
+				break;
+
+			default:
+				System.out.println(this.key + this.keyCode);
+				break;
 		}
+	}
+
+	@Override
+	public void settings(){
+		this.size(this.width, this.height);
+	}
+
+	@Override
+	public void setup(){
+		this.background(0);
+		this.fill(204, 102, 0);
+	}
+
+	private void drawRect(Rect rect){
+		this.rect((float) rect.getxPos(), (float) rect.getyPos(), (float) rect.getWidth(), (float) rect.getHeight());
 	}
 
 }
